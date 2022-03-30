@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Master Report</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../images/icon.ico" />
+        <script type="text/javascript" src="loader.js"></script>
+        <script type="text/javascript" src="page.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;">
+        <header style="position: relative;
+        height: 10%;">
+            <img style="width: 3%; left: 1%; position: relative; margin-top: 1%;" src="../images/logo.PNG" alt="Analyst Logo">
+            <div style="display: inline-block; position: relative; left: 5%; font-size: 30px; color: #39187d; bottom: 40%;">Automation Report</div>
+            <div style="float: right; position: relative; margin-top: 1%; right: 1%;">Tue Mar 29 2022 20:15:08</div>
+        </header>
+        <div style="width: 100%; display: inline-block;">
+            <div id="content">
+                <div style="height: 13em; background-color: #e9e7e7;">
+                    <div style="width: 33%; display: inline-block; height: inherit;">
+                        <table style="width: 100%; border-collapse: separate;">
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>Operating System</td>
+                                <td>Windows</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Environment</td>
+                                <td>DEV</td>
+                            </tr>
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>User Agent</td>
+                                <td>Shubhendu S. Gupta</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Start Time</td>
+                                <td>Tue Mar 29 2022 20:15:08</td>
+                            </tr>
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>End Time</td>
+                                <td>Wed Mar 30 2022 14:41:59</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Duration</td>
+                                <td>24 minutes</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width: 33%; display: inline-block; height: inherit; background-color: #b1afaf;">
+                        <div id="testReport"></div>
+                    </div>
+                    <div style="width: 33%; display: inline-block; height: inherit; background-color: #c7c7c7;">
+                        <div id="stepReport"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="padding: 15px;">
+                    <a onclick="goBack()" title="Go Back" style="text-decoration: none;">
+                        <img src="../images/left.png" alt="Back" style="width: 1%;"/>
+                    </a>
+                    <span id="tableHeader" style="font-size: 22px; position: relative; width: max-content; margin: 0;">Execution Details</span>
+                </div>
+                <div style="width: 100%;" id="testView">
+                    <table style="width: 90%;">
+                        <tbody>
+                            <tr style="height: 2em;">
+                                <td onclick="javascript:changeTestCaseHeader('TC001-Login_Scenario_Test')" style="width: 40%;">TC001-Login_Scenario_Test</td>
+                                <td style="width: 60%; background-color: red;"></td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td style="width: 40%;">TC002-Table_Data_View_Scenario</td>
+                                <td style="width: 60%; background-color: green;"></td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td style="width: 40%;">TC003-Screenshot_Capture_Scenario</td>
+                                <td style="width: 60%; background-color: gray;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer style="position: absolute; bottom: 0px;">This is footer</footer>
+    </body>
+</html>
