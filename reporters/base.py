@@ -1,0 +1,475 @@
+import json
+
+def html_body_header_content(report_json):
+    return '''
+<head>
+        <title>Master Report</title>
+        <link rel="shortcut icon" type="image/x-icon" href="data:image/png;base64,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
+        NTY6MjYrMDM6MDCSLJnNAAAAAElFTkSuQmCC" />
+        <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+      <script>
+            google.charts.load('current', {'packages':['corechart']});
+
+            google.charts.setOnLoadCallback(testReport);
+            google.charts.setOnLoadCallback(stepReport);
+
+            var stateData = {
+                tableHeader: "Execution Details"
+            }
+
+            var reportJson = ''' + report_json + '''
+
+            window.onload = () => {
+                testCaseListTable();
+                generateDateStamp();
+                document.getElementById("stepBodyTable").style.display = "none";
+            }
+
+            function testCaseStatus(testCaseName) {
+                var colorDiv = document.createElement("div");
+                colorDiv.setAttribute("style", "height: 22px; width: 50%; display: inline-block; font-size: 0px;");
+                if(Object.keys(reportJson.suite[testCaseName].steps).length !== 0) {
+                    var width = (100/Object.keys(reportJson.suite[testCaseName].steps).length) - 1;
+
+                    for(let i = 0; i < Object.keys(reportJson.suite[testCaseName].steps).length; i ++) {
+                        var div = document.createElement("div");
+                        div.setAttribute("title", Object.keys(reportJson.suite[testCaseName].steps)[i]);
+
+                        if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "fail")
+                            div.setAttribute("style", "margin-left: 1%; background-color: #d74545; height: inherit; width: " + width + "%; display: inline-block;");
+                        else if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "pass")
+                            div.setAttribute("style", "margin-left: 1%; background-color: #49b749; height: inherit; width: " + width + "%; display: inline-block;");
+                        else if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "skip")
+                            div.setAttribute("style", "margin-left: 1%; background-color: #5b83cd; height: inherit; width: " + width + "%; display: inline-block;");
+                        colorDiv.appendChild(div);
+                    }
+                }
+                else {
+                    var div = document.createElement("div");
+                    div.setAttribute("style", "margin-left: 1%; background-color: #5b83cd; height: inherit; width: 99%; display: inline-block;");
+                    colorDiv.appendChild(div);
+                }
+                return colorDiv;
+            }
+
+            function testCaseListTable() {
+                for(let i = 0; i < reportJson.total; i ++) {
+                    var oDiv = document.createElement("div");
+                    oDiv.setAttribute("onclick", "javascript:displayStepDetails('" + Object.keys(reportJson.suite)[i] + "')");
+                    oDiv.setAttribute("style", "width: 100%");
+
+                    var iDiv1 = document.createElement("div");
+                    iDiv1.setAttribute("style", "width: 40%; display: inline-block; cursor: pointer; position: relative; left: 1%; font-weight: 500");
+                    iDiv1.innerText = Object.keys(reportJson.suite)[i];
+
+                    oDiv.appendChild(iDiv1);
+
+                    oDiv.appendChild(testCaseStatus(Object.keys(reportJson.suite)[i]));
+                    document.getElementById("testView").appendChild(oDiv);
+                }
+            }
+
+            function testReport() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Test case wise status'],
+                    ['Pass', reportJson.test.pass],
+                    ['Fail', reportJson.test.fail],
+                    ['Skip', reportJson.test.skip],
+                    ['Warning', reportJson.test.warning],
+                    ['Error', reportJson.test.error]
+                ]);
+            
+                // Optional; add a title and set the width and height of the chart
+                var options = {
+                    'title':'Test case wise status', 
+                    'width':'inherit', 
+                    'height':'inherit',
+                    'backgroundColor': 'transparent',
+                    'colors': ['#008000', '#ff0000', '#005aff', '#ffc800', '#747474']
+                };
+            
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('testReport'));
+                chart.draw(data, options);
+            }
+
+            function stepReport() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Stepwise status'],
+                    ['Pass', reportJson.steps.pass],
+                    ['Fail', reportJson.steps.fail],
+                    ['Skip', reportJson.steps.skip],
+                    ['Warning', reportJson.steps.warning],
+                    ['Error', reportJson.steps.error]
+                ]);
+            
+                // Optional; add a title and set the width and height of the chart
+                var options = {
+                    'title':'Stepwise status', 
+                    'width':'inherit', 
+                    'height':'inherit',
+                    'backgroundColor': 'transparent',
+                    'colors': ['#008000', '#ff0000', '#005aff', '#ffc800', '#747474']
+                };
+            
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('stepReport'));
+                chart.draw(data, options);
+            }
+
+            function changeTestCaseHeader(testCaseName) {
+                document.getElementById("tableHeader").innerText = testCaseName;
+                document.getElementById("backBtn").style.display = "inline";
+            }
+
+            function displayStepDetails(testCaseName) {
+                changeTestCaseHeader(testCaseName);
+                document.getElementById("testView").style.display = "none";
+                generateTestStepDetails(testCaseName);
+            }
+
+            function goBack() {
+                document.getElementById("testView").style.display = "contents";
+                document.getElementById("backBtn").style.display = "none";
+                document.getElementById("tableHeader").innerText = stateData.tableHeader;
+                document.getElementById("stepBodyTable").style.display = "contents";
+                document.getElementById("stepBody").style.display = "none";
+            }
+
+            function generateTestStepDetails(testCaseName) {
+                document.getElementById("stepBody").style.display = "contents";
+                document.getElementById("stepBody").innerHTML = "";
+                document.getElementById("stepBodyTable").style.display = "inline-table";
+
+                for(let i = 0; i < Object.keys(reportJson.suite[testCaseName].steps).length; i ++) {
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "pass")
+                        td1.setAttribute("style", "width: 0.5%; background-color: #49b749;");
+                    else if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "fail")
+                        td1.setAttribute("style", "width: 0.5%; background-color: #d74545;");
+                    else if(reportJson.suite[testCaseName].steps[Object.keys(reportJson.suite[testCaseName].steps)[i]].status === "skip")
+                        td1.setAttribute("style", "width: 0.5%; background-color: #5b83cd;");
+
+                    var td2 = document.createElement("td");
+                    td2.setAttribute("style", "width: 80%; padding-left: 1%;");
+                    td2.innerText = Object.keys(reportJson.suite[testCaseName].steps)[i];
+
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+
+                    document.getElementById("stepBody").appendChild(tr);
+                }
+            }
+
+            function generateDateStamp() {
+                var date = new Date().toString().split(" ");
+                document.getElementById("dateStamp").innerText = date[0] + " " + date[1] + " " + date[2] + " " + date[3] + " " + date[4];
+}
+        </script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+'''
+
+def html_body_content(os, environment, userAgent, startTime, endTime, duration):
+    html_body_content = '''
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;">
+        <header style="position: relative; height: 4em;">
+            <svg style="width: 3%; left: 1%; position: relative; height: inherit;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="138px" height="148px" viewBox="0 0 138 148" enable-background="new 0 0 138 148" xml:space="preserve">  <image id="image0" width="138" height="148" x="0" y="0"
+                    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACUCAYAAABMW7GPAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAA
+                CXBIWXMAAA7DAAAOwwHHb6hkAAAW8ElEQVR42u2dd1gU1/rHv7ssvReRJqCCAbsC1oCJDf3ZY03s
+                GkRjiZgbTXJjiklu6jVRoxdjLMQWRcVeQKOxR4IiKIIFERGx0aRv+/1BGHZhy8zuzJxF5/M8PM9h
+                9+w578x+9/R5X1F5SaESAgJ6kJA2gASXz+ficPw1ZKTmo7JcCplMAblMAaVSCblcUXtjJGKIxWJY
+                Wkng6GKN0N5+eGNqV3j4OJA2nwiiF7lFUciVuHzhHhITMnDt8kM8flgKsHC13n5OGDKuA8bODIFI
+                JCJ9mbzwwgnlcf5zJO27gQPbr+LpozLO6+vdvzUWLusPZ1cb0pfOKS+EUEqLK7F9bTJ2b7oMhYLM
+                5bRp747lW8bBytqc9O3ghCYtlGePyzB9cBwqympIm0Kx9eRMNPd68cYxTVIoF0/exXcfHEVpcRVp
+                UzQyYmJnzP/kddJmsEqTmvUk7buBFZ+eQFWllLQpOtm3NRW29haYEdObtCms0SSEUlpcifen7sad
+                zCekTaHNtthL8PRxxOCx7Umbwgom3/XczniM2aO2kjbDYMzNzRDcxRO9+rZCRGQb2DtawsJSAjOJ
+                mLRpjDBpoaxffhbb1yaTNoMT7Bws0aZ9cwx7syPCBwaSNkcvJiuUj6P34eKpbNJm8Ia7pz3GzOiK
+                UZO7whTX8ExSKFMGbER+bjFpM4jRb1gQFnzaF7b2lqRNoTA5oSydvQ8XTr48LYku+g0PwqIvBsDS
+                ivycw6RGVAd3pAsiUeHE/kwM6bQKZ5NukzbFdFqUvJwiTIvcRNoMk6VDqDd+3DqOWP0mIZSK8hoM
+                77qatBkmj7ObDbafehsSczPe6zaJrmfZgoOkTWCVVq+4IbCtO1q0coG9oxVrRxGKnlbgzT6/Qqnk
+                /7dNvEW5lpKPhW/tIFa/SAS4uNmix+utcCvjMbKznkImlRtV5qGr8xsNQJ+XVuPqxVycPHwTl/68
+                i8oKw7chXN1tsePMLH7vE2mhjO4Ri5KiSiJ129pbYsfpKFjZ1B8NUCqBr/91BH8czDSoTG8/J8Ql
+                TtebT6FQIu9uEVZ9cRJXLuQyrsfL1wm/Jemvhy2ICiVpbwa+XXKMVPU4kr4A5haa+3tDBaypNaHD
+                zWuP8Nm8A3j88Dntz7wxtSve+agPL/eK6Bhl9VeniNX9/tcDtYoEAGITJjIus5mHvcFrHm3aN8e2
+                U28jNmEirG0taH1mT9xlFBdW8HK/iAkl/14xykqrSVWPnn1b6Xzf3smKcZlsnEEJaOuOA5fnole/
+                1rTyL5oYz80NagAxobw9bDOpqgEACoWeDAZ0yHS/XDosWzMcsz/U363kZhei+Bn3rQoRoTwvqUJN
+                tYxE1RS/r9O9K339ykNG5Y2ZHsK6jWOmdcWsxRF6861c9gfrdTeEiFB2bbxMolp1GzakaB2sPi+p
+                wpIZuxmVN2NRL07sHDczBG3aN9eZ5/TRW9zcJBWICGX3JvJCAYDx4etwK+Ox2mvXrzzEmJ5rGZXT
+                tacvLCy427j7fPUwvXmys7g9/cf7tmRVpdRkzrzKpHLMYeH03LylzAex1ZUy5OcWI+vaI5SqtGwS
+                czP4B7rCv40bHJysIJGI0czDXm95R3ddxzv/fo2ze8W7UJLP5PBdJaeYmYnh29qFVt5zx+9g+cdJ
+                KCutph5d1YVIJILEXAxHZ2u9eV+4FmXn+hS+q+SUL9eO0Pm+TKrAv6P34sqFXMYPpymVSkhr5LSe
+                eHz8kNunInkXSuZVZrMJU8bMTIyuvXw1vlddJcP3Hx7DqcM3ebGl8Gk5p+XzOpiV1shBYOOTM+Ry
+                BeJWXmj0pGLqX/cxpNMq3kQCAFVGbDLSgdcW5eb1R3xWxwvbYi9hW+wlmFuYYeORqcjNLsJHUQmk
+                zWIdXoWSwXARqykhrZFjUr8NxOrn2v0Gr11Pzq1nfFb3UmFhye2pN16Fcj+7kM/qXipcm9lyWj6v
+                XU/Bg1I+qzNZJBIx/AJcMT4qFH2HBqm9V/ikHIl7M5CUkIGC/FJUV9LbE2vu48itzXzeoNJiMifZ
+                TImxM0IQ9X44xGLNYwqXZraYEBWGCVFhUCqVePSgFAsm7EDhE93T33ZdPDm1m9euRybVvxr5ItO9
+                T0tEL4nQKpKGiEQiePg4YufZWfgtaTrcPbUv5Xd/rSWntpvEKfyXhSnzexj8WS9fJ2w79TbW7Z8M
+                G7vGJ+CCO71ALcrLjr7jAnRo+Yob9qfMxcBRbanXxGbcf42CUHhCJBKxutax+JtIJFyaA4lEjA6h
+                XpzbT/7p55cEc3P2f5P2jlY4eu1dVFVxf2xDaFF4QkbjWIFBiMCLy1JBKDyhkDft3VBBKDzyKL/p
+                LjgKQuGRwzuvkTbBYHgVCt2FpheV+A1N93Qfr0Kh+6jki0pNtazJioVXoXC9w9kU+PWHs6RNMAhe
+                heLl50T6eokjlyswIOhH0mYwhl+htOB2K7ypoFQC3y4+StoMRvAqFJ+WzqSv12RI2ncD331AzjcM
+                U3gVSnBnbnc4mxqJCRl4bzI/biuMhVeh+Lai90Tdy8TVS3kYGbaG1pODJOFVKKbggdkUKSutxpCO
+                q5BrwmeKeV+Z9fF3In3NJolMpsCMwXH415RdxOIi6oJ3obw+JMj4Ql5gUv+6j0HtVhjslZIreBdK
+                n8FtSF+zyaNQKPGf944gZuJOSGuM83nLFrwLRRjQ0if97wcYGbaGtBkACAhFbCaCo4t+fx8CtVRX
+                yTCmZyxpM8gcMxj/dijp625SFBdWYsqAjURtICKUQaNfjMidfJKfW4wNP50jVj8RoTg4WUFs9nKf
+                TTGEbf+7RMv7EhcQO+H21dqRpKpu0ix79xCReokJJSzcHxYW/AcoaupkXMknEo2E6JnZ7+PGkKy+
+                ybLu+zO810lUKO26esHOhEK2NhVOH+PeU3VDiJ/CD3nVj7QJrDB4THscz4pBUmYMAto247SuirIa
+                3veDiAulS09f4wsxAY7uuY6aahlEIiA2YRKOpC/A/E/6clbfjVR+/eERF4ofTa/Ppo5SocToHvUr
+                qOYWZhgxsRMSbyxEv2Hsb4RmphXwen3EheLW3I5Rfr/WLvjg+0Hgwgni0p+GwMLS8DMzlRVSDAj6
+                Sa1bEItF+PCHwdhxZhYcaLgqp8uNqy+ZUJgGJXqlowf6Dw/G/svzIJGwa/7V5DwcTpuP1kGGjzGU
+                SiW+jGm81uHqbos9F2fj05VDWRF5zq2nrF67PogLJT+3mFH+Tt18AADWNuY4mDqfVVsObk8DAKzd
+                NwljZhgeqOn00VtanS+HRwbi6LV34W3koytchn3RBHGh3L7BLCpE7/4BVFpiLsbxrBh4+TqxYotC
+                oaTiHM5eEoGv179hcFn/WXRE63tmEjHiEqfj242jDS6/Ncczq4YQF0rDwEq6kEjEGtddfkuajoBg
+                d1bseV5SRaXDXvXDtpNva/SZpo+8nCK9B6ZDevlif8pctGjF/DGWjmE+rFwvXYgLJSuNvn/8QWPa
+                A1r699i9E+Hpa/wDZg1D3Lp72WN/ylw4u9owLovOFNbGzgIbj0xD5BttaZRYT3AnD6OvlQlEhaJU
+                ApUVNbTzL/y8n873NyfNgL0j8zC0qrhoeT46/nw0Yx9sTFy6v/91JJZvGUs7v48/vw/TERVK/Pq/
+                aedV9YKoiz0XZ8PJhfmvHwC8/Zx0uuZIylwIBwbxkN29HBjV3zHMB3GJ0/Xms3Pgf9uDqFD0hZSt
+                w97RCou/iaSVVyQWYdeFaINu5rI1w/Xm2fPXHDjRPMrZMcybsQ3efk44mDoPIh2C7dyjBeNyjYWY
+                UBQKJUqLq2jl/V/CRMbl77owm1FXYWNvAb8AV1p51x2YojePvaOVwU74rKzNkXRjodbPR45qZ1C5
+                xkBMKD98lEgr368Hp8DDm1kTDtTOkL7ZMIpWXjOJGPv/nku7bGc3G3yyYojOPHNZiBh6MHUezDQ4
+                G+7Zt5XRZTOFmFASEzL05tmb/A78A+n9yjUR0ssPoTR2p3eencW47IhBbbROm23sLNB/RDAr92nF
+                7+MbXBOZTVQiQjl3/I7O9739nXDo6nxWBm2frtIdXHr5lrG0wsVqYtPRaRpf33JiJjs3CkBQRw+M
+                nt6V+n/OR6+xVjYTiAhl2YKDWt9797N+iDs2nbUH2q1tzBExKFDje99tHG3UwpWzm61a5C2RqLar
+                ZDIzokP04oh/yhcZ1cIaA+9COX/iTqMVS5FIhG59WiIpMwbD3uzIep1Lf1QfT1jbmONI+gKtoWjp
+                IhIB3n7OVHr94amcfJFisQgdu/lg07FprJdNF979UHw2/4Da/0PGdUDMF/05rVN1qhnS2w/fbjB8
+                D6chZaXVEIlE2Js8B7YcHutc/E2kQYN6tuBVKCcOZAJKoG0XT8z+oA+CO3lwHl2zjpZt3PBF7AhW
+                b7ZCocTAUW0xeV4P1o88NISkSABAVF5SyNvhS4VC+dI7JTaEygoprG24D4ygC8FzdROAtEgAE9g9
+                FmgaCEIRoIUgFAFaCEIRoIUgFAFaCEIRoIUgFAFaCEIRoIUgFAFaCEIRoIUgFAFaCEIRoIUgFAFa
+                CEIRoIUgFAFaCEIRoIUgFAFaCEIRoIUQDZIh/V+pjYLu6GKN3RdmkzaHN1gRyoiQ1dB0QtvB0Qpb
+                /mDvqTkBchgtlOLCCpSXaXaGU1FG30mOAPfcu13v2Ieu54Y6jBbK1jV/UWnf1i6ws7dEzu1nlEiS
+                T+cgLMKf9D0SADBzyG9U+nhWDKPPGi2UhM2pVHrt3kkwtzDDg5xiTI2sDW22a9NlQSgvAEbNemRS
+                9WeI6xzleasEwb566T7paxRgAaOEkpacR6UbxjOu86PWUEwCTROjhBK/IYVKj5rcRe297q+1pNIH
+                f08jfZ0CRmLUGCX5TA6VDu6s7vd0zod9cGzPdQDAppUXMHSCbncWSqUSackPANR2YW07ewIAKsul
+                SEvOw8nDWbh1vdZ5sX+gKwaObIvQV/1gRuPh8KpKKe5nFyEvpwh5d4uQc/sZSourUPikHM29HdAx
+                1Bth4f5oHWycN+irl+pb2DpX7Gx9Lje7EGcTbyMzrQAP7hVT98HTxxG+AS7wauEIL1+nRu5PVcum
+                87q2+g0WSkV5/dRXJBI18jWm6i2ppFB/DDyZVIH3JscDANw87PDzzjcxIWKdxrz3bj/Dn0duAgDi
+                jk1XGxM1pG6BTBv3bj/DpT/v4tf/ngUAHE5boOYchwl19gNAUmYMreAIt64/pj7XtZdvoy+q8Ek5
+                xr36i1bbNaE6o1G1SZut2j6risFdz/6tV6n0zEW9NeZpH+IFoLa1YBIw8WlBmVaRNGRq5EYUPCg1
+                9DIaMaqb4SHue/drTaWvXMil9ZmkvfW+7MY2CNRQkFeC8eG/0CqHawxuUU4cyKTSQ8Z30Jin//Bg
+                XEvJBwBs/vki5i19nVEdnbr5YMq8ngjq5KHmquve7WeIHrkVMqkcALBg/O9aHfb9tG0cnFxt0MzD
+                Xqu7rzOJt/D5/Fp3YdVVMpw/cQe9VL50ukxb2AvnTtT6pzu0I52WR6d9Kj+4Lj3U888avgXKf5a8
+                nd1ssGL7eI0BIspKq/HscRkKn1Yg40q+2nvrD9W7OlVdR1F9nQ4Gtyh3b9bGizEzE2t1Kz5gZL23
+                6b1bUhmVfzwrBv/dPBaduvs0+oL9Alyx7VT91kDhk3Kt5bQP8YaPv7NOn3DhAwPV3H2qfnlM8FWJ
+                Zvbn0Zt689dUy9XclEnM1b+Ouu7dxs4C8eeitUYRsXOwhF+AK7r0aIGJc7o3uld1f9pe15ZHFYOE
+                ohrN281DewSvhl+OXMbeVNnFzVbNy1FudqFR5Y2aUj9re5xvWFfWcJwmrZHrzH9kVzqVjl4Sofae
+                6vZH6Kv+7Nw0IzBIKKu/OEmlF36u2/+aqg/7VJYX31RbrLtZ7EXEKi2h51FbE3M+6kOlN/50Xmfe
+                /dvqlw0GjVb3Rq3qw7aqUsratRmKQUJJS3lApcPCdTv8VR2/JMRdYdX4wHb1MXp0dT98MnpqvU/Y
+                c8dv68xbN2uRmIt1RgX5+0wOqirIisWgwWzddJeOI9/gTp5U+uKpu6waH9C2XihyOX1XdJUVUmRn
+                PsGD3GI8yClGQV4JHuaVsGaXpZUE1VUyar1DE6pdpbaxh7WNOSorpFAolBja5We4NrNF32FB6DOo
+                DYJ4jtfDWCiZ6fXRMemM6sViEcwkYmp8wpXjOl2/uKz0R1i17A/eQsAGBLvj+j+zjzuZTzQGs1zz
+                5Skq/e/l/6exnLjE6ZgQsY6KevrsSTniN6SorYj7B7pi7IxQhA8MMChSGV0Ydz1Lpu2m0v2GB+NJ
+                QZnev7eiu1Gf2bc1lZMLKXyqueuJGvob5o7Z1kgk5uZmsLa1gKOzNZp52Gn1bm0I0R/UD0y/ijms
+                MU+6SvetLSqqSzNbJN5YiIjIQK2LgDm3nuH7D49heMhqfBiVwMm9BQxoUVQPKX0cvZdxhScOZGJC
+                VBhnF6TK2m9P465KFK4l3w1Cz76tYGtnodG/rb5VXLrUbT8AQP59zV1adZUMAODZQn94u09WDgVQ
+                2xpXlFXj+L5MxG9IQXGheijg5NM5mDV8M37ZP5n1e8lIKKrTYkNhc3aiD9UmOnbvJAQYuZfDBA8f
+                RxTklUAmlaOstFptS+PwzvppccNdd11Y25jD2sYc46NCMT4qFEBt3OiVn/+B08duAQCys55CWiNv
+                FBvRWBgJ5cLJbCrdf0Qw+g+nH0r+y5jDVKjYpwVlOtdfuIBPkdTdny2rLwIADsenY9zMUOq95UuP
+                U+mGC2RMcXK1wScrh2J4yGpq7eX2jSesB6dkJJTYr/+k0hOiwhgFCJg4uzvWfncaALDm61P4ZMVQ
+                Vi+kIc8ek50uj5rUmRLKL9+doYSiUJmdicQi1gb2rw99BYd+r22pqqvYn0ozGszW9asAGEeRGDuz
+                fsMrTcsWN5u4utsaX4gROGqJO5ijsuP7GoNuRx9lKmH3uIgvQFsoqucXfFoaFkrVwrK2ASumceyA
+                bUisboZH1s+kLp+v3U1e98MZ6rXIN9iLDXgmsX5xz9NH/wCZztEPVWgL5fi+G1Ta0Hh5HULro3be
+                vEY/MLahOKgsCL4/dZfGyObXUvKx/OMkDO6wknqtpLASRU8raNWhixETO1Hp7WsvIT+3GMmnc6jX
+                9IWxW7XsJA7tTEdWuvZ7lXLuHsaH/0KttQC1Qb010aVn/brX5+9qD66lCdpjlCQVoahO/5gwaW53
+                pJy7BwD4KCoBuzh+0m7pj0Pw/rRdAIAbVwsQ2XYF7c+O7b0WDk5W2PPXHIPrV/1hXLl4H1MGbKT+
+                pzM2MWTNSVfwp1mLwzFn1FYAtd2/puUAow8u1Z39AGBwAKMOIfU3jo/up0vPFnj3s35689naWWDR
+                l/0Rfz5abVpJN9yuNszMxFrHC2zHBrSxtcD+y3N1RlgPbOuuJl5NPNeyIUo7Xo/qF0s3QLS+chyd
+                rdWOCzKtQy5T4Pk/U25LK4nWX6m0Ro5zx+9gd9xllBZVwcHZCuEDA9B3aBAcna3VxKFUAg/vl2DL
+                6ou4n1OEVTsmaLRfLAYcnPTbWP68GtJ/nkRYNGkncu/U7vHEn4uGs5vuiO9yuQKV5VJUVUqRlvwA
+                N9MLcD31IQqflMOlmS1s7SwwcmJndOjmA1sGy/elRZXYGnsJF0/dxYOcIgR39kRQh+aIGNQG7bp6
+                aQyXw2tgp5cd1aae6ZN6pBHcXvBE9s36FenAds1Jm8MYQSg8sf6Hs1R6+eaxpM1hjCAUnkg5f49K
+                W9uSD/3GFEEoPFH3aK22Q0qmjiAUHqjb8wGAYW+xHwCcDwSh8MBulbPCY6eHGFESOQShcIxcpqAW
+                scRmTTecr7COIkALoUURoIUgFAFa/D87aW/M4lHZOwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0w
+                NC0wMlQxNzo1NjoyNiswMzowMONxIXEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDJUMTc6
+                NTY6MjYrMDM6MDCSLJnNAAAAAElFTkSuQmCC" />
+            </svg>
+            <div style="display: inline-block; position: relative; left: 5%; font-size: 30px; color: #39187d; bottom: 15px;">Automation Report</div>
+            <div style="float: right; position: relative; margin-top: 1%; right: 1%; color: #39187d; font-weight: 500;" id="dateStamp"></div>
+        </header>
+        <div style="width: 100%; display: inline-block; min-height: 86vh;">
+            <div id="content">
+                <div style="height: max-content; background-color: #e9e7e7;">
+                    <div style="width: 33%; display: inline-block; height: inherit;">
+                        <table style="width: 100%; border-collapse: separate;">
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>Operating System</td>
+                                <td>''' + os + '''</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Environment</td>
+                                <td>''' + environment + '''</td>
+                            </tr>
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>User Agent</td>
+                                <td>''' + userAgent + '''</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Start Time</td>
+                                <td>''' + startTime + '''</td>
+                            </tr>
+                            <tr style="background-color: #b5b4b6; height: 2em;">
+                                <td>End Time</td>
+                                <td>''' + endTime + '''</td>
+                            </tr>
+                            <tr style="height: 2em;">
+                                <td>Duration</td>
+                                <td>''' + duration + '''</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width: 33%; display: inline-block; height: inherit; background-color: #b1afaf;">
+                        <div id="testReport"></div>
+                    </div>
+                    <div style="width: 33%; display: inline-block; height: inherit; background-color: #c7c7c7;">
+                        <div id="stepReport"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="padding: 15px;">
+                    <a id="backBtn" onclick="goBack()" title="Go Back" style="text-decoration: none; display: none;">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+                        AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+                        RQfmBAIVCBCcw8eDAAAAZklEQVRYw+3XsQ2AIABE0dMdNLr/JFYGgo0WjoOFjYUUR0X0X8kneaFE
+                        Yt/YqE2LWWziUFawirlBu7JOTUaBgICAgICAeKx/Pe2K98ul4i2zUWBgYGBgYP7N3B/paJUqJmk1
+                        C2tqF0Y84xsV5igmAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA0LTAyVDE4OjA4OjE2KzAzOjAw
+                        JRBvVgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNC0wMlQxODowODoxNiswMzowMFRN1+oAAAAA
+                        SUVORK5CYII=" alt="Back" style="width: 1%;"/>
+                    </a>
+                    <span id="tableHeader" style="font-size: 22px; position: relative; width: max-content; margin: 0;">Execution Details</span>
+                </div>
+                <div style="width: 100%; " id="testView">
+                    <!-- Dynamic content -->
+                </div>
+                <div style="width: 100%;">
+                    <table style="margin-left: 2%; width: 90%; display: none;" id="stepBodyTable">
+                        <tbody id="stepBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer style="position: inherit; bottom: 0px; width: 100%; text-align: center; background-color: #ada9a4; color: #060f50;">Analyst Project Team. (c) All rights reserved.</footer>
+    </body>
+'''
+    return html_body_content
+
+def generate_report(report_json):
+    html_content = '''
+    <html>
+    ''' + html_body_header_content(str(report_json)) + html_body_content(report_json["os"], report_json["environment"], report_json["userAgent"], report_json["startTime"], report_json["endTime"], report_json["duration"]) + '''
+    </html>
+    '''
+
+    f = open("base.html", 'w')
+    f.write(html_content)
+    f.close()
