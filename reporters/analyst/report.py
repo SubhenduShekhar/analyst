@@ -98,22 +98,4 @@ def flush():
     report_json["duration"] = duration()
     report_json["endTime"] = str(report_json["endTime"])
     report_json["startTime"] = str(report_json["startTime"])
-    base.generate_report(report_json)
-
-
-init("Windows", "DEV", "Shubhendu")
-
-init_test("TC001-First_Test")
-add_result(Status.Pass, "Passed 1")
-add_result(Status.Pass, "Passed 2")
-add_result(Status.Fail, "Fail 3")
-flush_test()
-
-init_test("TC002-Second_Test")
-add_result(Status.Pass, "Passed 1")
-add_result(Status.Pass, "Passed 2")
-add_result(Status.Pass, "Passed 3")
-flush_test()
-
-print(report_json)
-flush()
+    base.generate_report(report_json, "base.html")

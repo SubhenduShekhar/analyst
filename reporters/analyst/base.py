@@ -1,5 +1,9 @@
-<html>
-    <head>
+import json
+
+# class Htmlprovider:
+def html_body_header_content(report_json):
+    return '''
+<head>
         <title>Master Report</title>
         <link rel="shortcut icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACUCAYAAABMW7GPAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
         AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAA
@@ -110,8 +114,7 @@
         NC0wMlQxNzo1NjoyNiswMzowMONxIXEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDQtMDJUMTc6
         NTY6MjYrMDM6MDCSLJnNAAAAAElFTkSuQmCC" />
         <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
-        
-        <script>
+      <script>
             google.charts.load('current', {'packages':['corechart']});
 
             google.charts.setOnLoadCallback(testReport);
@@ -121,126 +124,7 @@
                 tableHeader: "Execution Details"
             }
 
-            var reportJson = {
-                total: 3,
-                test: {
-                    pass: 1,
-                    fail: 1,
-                    skip: 1,
-                    error: 0,
-                    warning: 0
-                },
-                steps: {
-                    pass: 18,
-                    fail: 6,
-                    skip: 0,
-                    error: 0,
-                    warning: 0
-                },
-                suite: {
-                    "TC001-Login_Scenario_Test": {
-                        status: "fail",
-                        steps: {
-                            "Launch browser successfully": {
-                                status: "pass"
-                            },
-                            "Navigate to URL successfully": {
-                                status: "pass"
-                            },
-                            "Login with incorrect username": {
-                                status: "pass"
-                            },
-                            "Login with correct username": {
-                                status: "fail",
-                                reason: "Exception in thread \"main\" java.lang.NullPointerException \
-                                at com.example.myproject.Book.getTitle(Book.java:16) \
-                                at com.example.myproject.Author.getBookTitles(Author.java:25) \
-                                at com.example.myproject.Bootstrap.main(Bootstrap.java:14)"
-                            },
-                            "Logout successfully": {
-                                status: "fail"
-                            },
-                            "Close browser": {
-                                status: "pass"
-                            },
-                            "Launch browser successfully1": {
-                                status: "pass"
-                            },
-                            "Navigate to URL successfully1": {
-                                status: "pass"
-                            },
-                            "Login with incorrect username1": {
-                                status: "pass"
-                            },
-                            "Login with correct username1": {
-                                status: "fail",
-                                reason: "Exception in thread \"main\" java.lang.NullPointerException \
-                                at com.example.myproject.Book.getTitle(Book.java:16) \
-                                at com.example.myproject.Author.getBookTitles(Author.java:25) \
-                                at com.example.myproject.Bootstrap.main(Bootstrap.java:14)"
-                            },
-                            "Logout successfully1": {
-                                status: "fail"
-                            },
-                            "Close browser1": {
-                                status: "pass"
-                            },
-                            "Launch browser successfully2": {
-                                status: "pass"
-                            },
-                            "Navigate to URL successfully2": {
-                                status: "pass"
-                            },
-                            "Login with incorrect username2": {
-                                status: "pass"
-                            },
-                            "Login with correct username2": {
-                                status: "fail",
-                                reason: "Exception in thread \"main\" java.lang.NullPointerException \
-                                at com.example.myproject.Book.getTitle(Book.java:16) \
-                                at com.example.myproject.Author.getBookTitles(Author.java:25) \
-                                at com.example.myproject.Bootstrap.main(Bootstrap.java:14)"
-                            },
-                            "Logout successfully2": {
-                                status: "fail"
-                            },
-                            "Close browser2": {
-                                status: "pass"
-                            }
-                        }
-                    },
-                    "TC002-Table_Data_View_Scenario": {
-                        status: "pass",
-                        steps: {
-                            "Launch browser successfully": {
-                                status: "pass"
-                            },
-                            "Navigate to URL successfully": {
-                                status: "pass"
-                            },
-                            "Login with correct username": {
-                                status: "pass"
-                            },
-                            "Click user history": {
-                                status: "pass"
-                            },
-                            "Validate user history": {
-                                status: "pass"
-                            },
-                            "Logout successfully": {
-                                status: "pass"
-                            },
-                            "Close browser": {
-                                status: "pass"
-                            }
-                        }
-                    },
-                    "TC003-Screenshot_Capture_Scenario": {
-                        status: "skip",
-                        steps: {}
-                    }
-                }
-            }
+            var reportJson = ''' + report_json + '''
 
             window.onload = () => {
                 testCaseListTable();
@@ -392,7 +276,11 @@
         </script>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;">
+'''
+
+def html_body_content(os, environment, userAgent, startTime, endTime, duration):
+    html_body_content = '''
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;">
         <header style="position: relative; height: 4em;">
             <svg style="width: 3%; left: 1%; position: relative; height: inherit;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="138px" height="148px" viewBox="0 0 138 148" enable-background="new 0 0 138 148" xml:space="preserve">  <image id="image0" width="138" height="148" x="0" y="0"
                     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACUCAYAAABMW7GPAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -514,27 +402,27 @@
                         <table style="width: 100%; border-collapse: separate;">
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>Operating System</td>
-                                <td>Windows</td>
+                                <td>''' + os + '''</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Environment</td>
-                                <td>DEV</td>
+                                <td>''' + environment + '''</td>
                             </tr>
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>User Agent</td>
-                                <td>Shubhendu S. Gupta</td>
+                                <td>''' + userAgent + '''</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Start Time</td>
-                                <td>Tue Mar 29 2022 20:15:08</td>
+                                <td>''' + startTime + '''</td>
                             </tr>
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>End Time</td>
-                                <td>Wed Mar 30 2022 14:41:59</td>
+                                <td>''' + endTime + '''</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Duration</td>
-                                <td>24 minutes</td>
+                                <td>''' + duration + '''</td>
                             </tr>
                         </table>
                     </div>
@@ -573,4 +461,16 @@
         </div>
         <footer style="position: inherit; bottom: 0px; width: 100%; text-align: center; background-color: #ada9a4; color: #060f50;">Analyst Project Team. (c) All rights reserved.</footer>
     </body>
-</html>
+'''
+    return html_body_content
+
+def generate_report(report_json, filepath):
+    html_content = '''
+        <html>
+        ''' + html_body_header_content(str(report_json)) + html_body_content(report_json["os"], report_json["environment"], report_json["userAgent"], report_json["startTime"], report_json["endTime"], report_json["duration"]) + '''
+        </html>
+        '''
+        
+    f = open(filepath + ".html", 'w')
+    f.write(html_content)
+    f.close()

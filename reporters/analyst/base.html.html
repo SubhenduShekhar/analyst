@@ -1,7 +1,6 @@
-import json
 
-def html_body_header_content(report_json):
-    return '''
+        <html>
+        
 <head>
         <title>Master Report</title>
         <link rel="shortcut icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACUCAYAAABMW7GPAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -123,7 +122,7 @@ def html_body_header_content(report_json):
                 tableHeader: "Execution Details"
             }
 
-            var reportJson = ''' + report_json + '''
+            var reportJson = {'total': 2, 'test': {'pass': 1, 'fail': 1, 'skip': 0, 'error': 0, 'warning': 0}, 'steps': {'pass': 5, 'fail': 1, 'skip': 0, 'error': 0, 'warning': 0}, 'suite': {'TC001-First_Test': {'steps': {'Passed 1': {'status': 'pass'}, 'Passed 2': {'status': 'pass'}, 'Fail 3': {'status': 'fail'}}}, 'TC002-Second_Test': {'steps': {'Passed 1': {'status': 'pass'}, 'Passed 2': {'status': 'pass'}, 'Passed 3': {'status': 'pass'}}}}, 'os': 'Windows', 'environment': 'DEV', 'userAgent': 'Shubhendu', 'startTime': '2022-04-04 20:08:12.202801', 'endTime': '2022-04-04 20:08:12.202801', 'duration': '0.0 minutes'}
 
             window.onload = () => {
                 testCaseListTable();
@@ -275,10 +274,7 @@ def html_body_header_content(report_json):
         </script>
         <link rel="stylesheet" href="style.css">
     </head>
-'''
 
-def html_body_content(os, environment, userAgent, startTime, endTime, duration):
-    html_body_content = '''
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;">
         <header style="position: relative; height: 4em;">
             <svg style="width: 3%; left: 1%; position: relative; height: inherit;" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="138px" height="148px" viewBox="0 0 138 148" enable-background="new 0 0 138 148" xml:space="preserve">  <image id="image0" width="138" height="148" x="0" y="0"
@@ -401,27 +397,27 @@ def html_body_content(os, environment, userAgent, startTime, endTime, duration):
                         <table style="width: 100%; border-collapse: separate;">
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>Operating System</td>
-                                <td>''' + os + '''</td>
+                                <td>Windows</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Environment</td>
-                                <td>''' + environment + '''</td>
+                                <td>DEV</td>
                             </tr>
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>User Agent</td>
-                                <td>''' + userAgent + '''</td>
+                                <td>Shubhendu</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Start Time</td>
-                                <td>''' + startTime + '''</td>
+                                <td>2022-04-04 20:08:12.202801</td>
                             </tr>
                             <tr style="background-color: #b5b4b6; height: 2em;">
                                 <td>End Time</td>
-                                <td>''' + endTime + '''</td>
+                                <td>2022-04-04 20:08:12.202801</td>
                             </tr>
                             <tr style="height: 2em;">
                                 <td>Duration</td>
-                                <td>''' + duration + '''</td>
+                                <td>0.0 minutes</td>
                             </tr>
                         </table>
                     </div>
@@ -460,16 +456,6 @@ def html_body_content(os, environment, userAgent, startTime, endTime, duration):
         </div>
         <footer style="position: inherit; bottom: 0px; width: 100%; text-align: center; background-color: #ada9a4; color: #060f50;">Analyst Project Team. (c) All rights reserved.</footer>
     </body>
-'''
-    return html_body_content
 
-def generate_report(report_json):
-    html_content = '''
-    <html>
-    ''' + html_body_header_content(str(report_json)) + html_body_content(report_json["os"], report_json["environment"], report_json["userAgent"], report_json["startTime"], report_json["endTime"], report_json["duration"]) + '''
-    </html>
-    '''
-
-    f = open("base.html", 'w')
-    f.write(html_content)
-    f.close()
+        </html>
+        
